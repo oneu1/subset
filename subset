@@ -1,0 +1,33 @@
+function subsetSum(S, n, d)
+    found = 0;
+    subset = zeros(1, n);
+    
+    function subsetHelper(index, currentSum)
+        if currentSum == d then
+            disp("Subset found: ");
+            disp(subset(1:index-1));
+            found = 1;
+            return;
+        end
+        if index > n then
+            return;
+        end
+        
+        subset(index) = 1;
+        subsetHelper(index + 1, currentSum + S(index));
+        subset(index) = 0;
+        subsetHelper(index + 1, currentSum);
+    endfunction
+    
+    subsetHelper(1, 0);
+    
+    if found == 0 then
+        disp("No subset found with sum equal to " + string(d));
+    end
+endfunction
+
+S = [3, 34, 4, 12, 5, 2];
+n = length(S);
+d = 9;
+
+subsetSum(S, n, d);
